@@ -1,0 +1,66 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.7
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/Lernstick/glados:
+      branch: master
+      repo: https://github.com/Lernstick/glados
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/Lernstick/glados git:
+        commands:
+        - /usr/bin/env sh .sqa/script.blurry-yellow-tuatara.sh
+        container: qc.acc_lanky-rose-drever
+  QC.Doc:
+    repos:
+      github.com/Lernstick/glados find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.droopy-heliotrope-llama.sh
+        container: qc.doc_tasty-lilac-chimpanzee
+      github.com/Lernstick/glados git:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-ochre-wolf.sh
+        container: qc.doc_smelly-plum-robin
+      github.com/Lernstick/glados markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.fuzzy-cerise-zonkey.sh
+        container: qc.doc_silly-pear-llama
+      github.com/Lernstick/glados restructuredtext-lint:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-amethyst-fish.sh
+        container: qc.doc_shabby-periwinkle-owl
+  QC.Lic:
+    repos:
+      github.com/Lernstick/glados licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.muggy-ivory-newt.sh
+        container: qc.lic_seedy-carmine-gorilla
+  QC.Sec:
+    repos:
+      github.com/Lernstick/glados bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.seedy-sapphire-koala.sh
+        container: qc.sec_beady-mustard-peccary
+  QC.Sty:
+    repos:
+      github.com/Lernstick/glados flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.sickly-red-dachshund.sh
+        container: qc.sty_wheezy-myrtle-gibbon
+      github.com/Lernstick/glados jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.scaly-mauve-monkey.sh
+        container: qc.sty_boozy-indigo-newt
+  QC.Ver:
+    repos:
+      github.com/Lernstick/glados get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.skanky-tomato-hound.sh
+        container: qc.ver_frumpy-gold-bobcat
+timeout: 1800
